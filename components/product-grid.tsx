@@ -356,7 +356,7 @@ export default function ProductGrid() {
                   )}
                 </div>
 
-                <div className="p-6">
+                <div className="p-6 relative">
                   <h3 className="text-xl font-semibold text-gray-900 mb-2">{product.name}</h3>
                   <p className="text-gray-600 text-sm mb-4 line-clamp-2">{product.description}</p>
 
@@ -399,14 +399,13 @@ export default function ProductGrid() {
                     </div>
                   ) : (
                     <Button
-                      className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
+                      className="absolute right-4 bottom-4 flex items-center bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-200"
                       onClick={(e) => {
                         e.stopPropagation()
                         handleProductClick(product)
                       }}
                     >
-                      <Plus className="mr-2 h-4 w-4" />
-                      Add to Cart
+                      <Plus className="mr-2 flex items-center h-4 w-8 font-bold" />
                     </Button>
                   )}
                 </div>
