@@ -110,14 +110,6 @@ export default function FoodDeliveryApp() {
 
             {/* Navigation Tabs */}
             <div className="flex flex-col lg:flex-row gap-8 mt-8">
-                {/* Mobile: CategorySidebar as horizontal line */}
-                <div className="block lg:hidden mb-4">
-                    <CategorySidebar orientation="horizontal" />
-                </div>
-                {/* Desktop: CategorySidebar as sidebar */}
-                <aside className="hidden lg:block lg:w-80">
-                    <CategorySidebar />
-                </aside>
                 <section className="flex-1">
                     <Suspense fallback={<LoadingSpinner />}>
                         <ProductGrid />
