@@ -19,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en"
       className="hydrated"
+      data-arp=""
     >
       <body className={inter.className}>
         <Providers>{children}</Providers>

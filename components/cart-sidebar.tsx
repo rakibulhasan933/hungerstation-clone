@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { useAppSelector, useAppDispatch } from "@/store/hooks"
 import { updateQuantity, removeItem, clearCart } from "@/store/cartSlice"
+import Image from "next/image"
 
 interface CartSidebarProps {
   isOpen: boolean
@@ -94,10 +95,12 @@ export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
                     <div className="flex space-x-4">
                       {/* Item Image */}
                       <div className="flex-shrink-0">
-                        <img
+                        <Image
                           src={item.image || "/placeholder.svg"}
                           alt={item.name}
                           className="w-16 h-16 object-cover rounded-lg"
+                          width={64}
+                          height={64}
                         />
                       </div>
 

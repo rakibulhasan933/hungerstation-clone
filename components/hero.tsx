@@ -1,5 +1,6 @@
 import { Star, Clock } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
+import Image from "next/image"
 
 export default function Hero() {
   return (
@@ -36,10 +37,12 @@ export default function Hero() {
 
         <div className="flex-1 mt-8 lg:mt-0">
           <div className="relative">
-            <img
-              src="/placeholder.svg?height=300&width=400"
+            <Image
+              src="/bannar.jpg?height=300&width=400"
               alt="Delicious food spread"
               className="w-full h-64 lg:h-80 object-cover rounded-xl shadow-2xl"
+              width={400}
+              height={300}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent rounded-xl"></div>
           </div>
