@@ -23,7 +23,7 @@ export default function CategorySidebar({ orientation }: CategorySidebarProps) {
 
   if (orientation === "horizontal") {
     return (
-      <div className="bg-white rounded-2xl shadow-sm border p-4 flex gap-2 overflow-x-auto">
+      <div className="bg-white rounded-2xl shadow-sm border md:p-4 p-2 flex gap-2 overflow-x-auto">
         {categories.map((category) => {
           const Icon = category.icon
           const isActive = activeCategory === category.id
@@ -32,7 +32,7 @@ export default function CategorySidebar({ orientation }: CategorySidebarProps) {
             <Button
               key={category.id}
               variant={isActive ? "default" : "ghost"}
-              className={`h-12 px-4 flex items-center ${isActive ? "bg-orange-500 hover:bg-orange-600 text-white" : "hover:bg-gray-50 text-gray-700"
+              className={` md:h-12 h-10 md:px-4 px-2 flex items-center ${isActive ? "bg-orange-500 hover:bg-orange-600 text-white" : "hover:bg-gray-50 text-gray-700"
                 }`}
               onClick={() => setActiveCategory(category.id)}
             >
@@ -53,8 +53,8 @@ export default function CategorySidebar({ orientation }: CategorySidebarProps) {
 
   // Default vertical sidebar
   return (
-    <div className="bg-white rounded-2xl shadow-sm border p-6 sticky top-24">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Categories</h3>
+    <div className="bg-white rounded-2xl shadow-sm border md:p-4 p-2 sticky top-24">
+      <h3 className="text-lg font-semibold text-gray-900 mb-2">Categories</h3>
       <div className="space-y-2">
         {categories.map((category) => {
           const Icon = category.icon
@@ -64,7 +64,7 @@ export default function CategorySidebar({ orientation }: CategorySidebarProps) {
             <Button
               key={category.id}
               variant={isActive ? "default" : "ghost"}
-              className={`w-full justify-start h-12 px-4 ${isActive ? "bg-orange-500 hover:bg-orange-600 text-white" : "hover:bg-gray-50 text-gray-700"
+              className={`w-full justify-start md:h-12 h-10 md:px-4 px-2 ${isActive ? "bg-orange-500 hover:bg-orange-600 text-white" : "hover:bg-gray-50 text-gray-700"
                 }`}
               onClick={() => setActiveCategory(category.id)}
             >

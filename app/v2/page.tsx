@@ -10,7 +10,7 @@ import ProductGrid from "@/components/product-grid"
 
 export default function FoodDeliveryApp() {
     return (
-        <div className="min-h-screen bg-gray-50">
+        <div className="min-h-screen bg-gray-50 mx-3 md:mx-20">
             {/* Header */}
             <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 px-4 py-6 text-white">
                 <div className="flex items-center justify-between mb-6">
@@ -31,7 +31,7 @@ export default function FoodDeliveryApp() {
             </div>
 
             {/* Restaurant Info Card */}
-            <div className="mx-4 -mt-8 relative z-10">
+            <div className="mx-4 md:mx-24 -mt-8 relative z-10">
                 <Card className="bg-white shadow-lg rounded-2xl overflow-hidden">
                     <CardContent className="p-6">
                         {/* Restaurant Header */}
@@ -93,8 +93,8 @@ export default function FoodDeliveryApp() {
                         </div>
 
                         {/* Discount Cards */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-6">
-                            {[1, 2, 3].map((i) => (
+                        <div className="grid grid-cols-2 md:grid-cols-3 md:gap-3 gap-2 mb-6">
+                            {[1, 2, 3, 4].map((i) => (
                                 <Card key={i} className="bg-orange-50 border-orange-200">
                                     <CardContent className="p-4 text-center">
                                         <p className="text-orange-600 font-bold text-lg">₹10 Off</p>
