@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 import { useAppDispatch } from "@/store/hooks"
 import { addItem } from "@/store/cartSlice"
+import Image from "next/image"
 
 interface ProductModalProps {
   product: any
@@ -182,10 +183,12 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
 
           {/* Hero Image */}
           <div className="relative h-64 bg-gradient-to-br from-purple-600 via-purple-700 to-pink-600 rounded-t-3xl overflow-hidden">
-            <img
+            <Image
               src={product.image || "/placeholder.svg?height=300&width=500"}
               alt={product.name}
               className="w-full h-full object-cover"
+              width={500}
+              height={300}
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
           </div>
@@ -325,7 +328,10 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                       )
                     }}
                   >
-                    <img
+                    <Image
+                      width={100}
+                      height={100}
+                      priority
                       src={item.image || "/placeholder.svg"}
                       alt={item.name}
                       className="w-full h-16 object-cover rounded mb-2"

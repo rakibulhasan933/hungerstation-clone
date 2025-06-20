@@ -10,6 +10,7 @@ import ProductModal from "./product-modal"
 import { useAppSelector, useAppDispatch } from "@/store/hooks"
 import { updateQuantity, clearLastAddedItem } from "@/store/cartSlice"
 import { addItem } from "@/store/cartSlice"
+import Image from "next/image"
 
 const products = [
   {
@@ -18,7 +19,7 @@ const products = [
     description: "4 pieces of chicken + fries + garlic sauce + coleslaw",
     price: 25.0,
     calories: 1215,
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/poducts.jpg?height=200&width=200",
     rating: 4.8,
     isPopular: true,
     fullDescription: "4 pieces of chicken + fries + garlic sauce + cocktail sauce + bread",
@@ -52,9 +53,9 @@ const products = [
       },
     ],
     relatedItems: [
-      { id: "drink1", name: "Coca Cola", price: 5, image: "/placeholder.svg?height=100&width=100" },
-      { id: "drink2", name: "Pepsi", price: 5, image: "/placeholder.svg?height=100&width=100" },
-      { id: "side1", name: "Extra Fries", price: 8, image: "/placeholder.svg?height=100&width=100" },
+      { id: "drink1", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+      { id: "drink2", name: "Pepsi", price: 5, image: "/poducts.jpg?height=100&width=100" },
+      { id: "side1", name: "Extra Fries", price: 8, image: "/poducts.jpg?height=100&width=100" },
     ],
   },
   {
@@ -63,7 +64,7 @@ const products = [
     description: "4 pieces of chicken + fries + garlic sauce + coleslaw",
     price: 25.0,
     calories: 1370,
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/poducts.jpg?height=200&width=200",
     rating: 4.7,
     isSpicy: true,
     fullDescription: "4 pieces of spicy chicken + fries + garlic sauce + cocktail sauce + bread",
@@ -90,8 +91,8 @@ const products = [
       },
     ],
     relatedItems: [
-      { id: "drink1", name: "Coca Cola", price: 5, image: "/placeholder.svg?height=100&width=100" },
-      { id: "side2", name: "Coleslaw", price: 6, image: "/placeholder.svg?height=100&width=100" },
+      { id: "drink1", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+      { id: "side2", name: "Coleslaw", price: 6, image: "/poducts.jpg?height=100&width=100" },
     ],
   },
   {
@@ -100,7 +101,7 @@ const products = [
     description: "Marinated and fried chicken slices with garlic sauce",
     price: 22.0,
     calories: 980,
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/poducts.jpg?height=200&width=200",
     rating: 4.6,
     fullDescription: "Marinated and fried chicken slices with garlic sauce and fresh vegetables",
     allergens: ["Gluten"],
@@ -121,7 +122,7 @@ const products = [
     description: "4 pieces of spicy broasted chicken covered in special sauce",
     price: 28.0,
     calories: 1450,
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/poducts.jpg?height=200&width=200",
     rating: 4.9,
     isSpicy: true,
     isNew: true,
@@ -145,7 +146,7 @@ const products = [
     description: "8 pieces of chicken + large fries + 4 garlic sauce + coleslaw",
     price: 45.0,
     calories: 2400,
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/poducts.jpg?height=200&width=200",
     rating: 4.8,
     isPopular: true,
     fullDescription: "8 pieces of chicken + large fries + 4 garlic sauce + coleslaw + bread rolls",
@@ -167,7 +168,7 @@ const products = [
     description: "Crispy chicken breast + lettuce + tomato + special sauce",
     price: 18.0,
     calories: 650,
-    image: "/placeholder.svg?height=200&width=200",
+    image: "/poducts.jpg?height=200&width=200",
     rating: 4.5,
     fullDescription: "Crispy chicken breast + lettuce + tomato + special sauce + pickles + cheese",
     allergens: ["Gluten", "Dairy"],
@@ -322,10 +323,12 @@ export default function ProductGrid() {
                 onClick={() => handleProductClick(product)}
               >
                 <div className="relative">
-                  <img
+                  <Image
                     src={product.image || "/placeholder.svg"}
                     alt={product.name}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                    width={400}
+                    height={300}
                   />
                   <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                     {product.isPopular && <Badge className="bg-orange-500 hover:bg-orange-600">Popular</Badge>}
