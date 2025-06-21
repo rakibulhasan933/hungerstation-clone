@@ -197,7 +197,18 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
       addedAt: Date.now(),
     }
 
+    // Save to Redux
     dispatch(addItem(cartItem))
+
+    // Save to localStorage
+    try {
+      const existingCart = JSON.parse(localStorage.getItem("cart") || "[]")
+      // Add new cart item to the beginning of the array (most recent first)
+      const updatedCart = [cartItem, ...existingCart]
+      localStorage.setItem("cart", JSON.stringify(updatedCart))
+    } catch (e) {
+      // Ignore localStorage errors
+    }
 
     setShowSuccess(true)
     setIsSubmitting(false)

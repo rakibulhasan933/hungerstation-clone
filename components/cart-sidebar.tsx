@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator"
 import { useAppSelector, useAppDispatch } from "@/store/hooks"
 import { updateQuantity, removeItem, clearCart } from "@/store/cartSlice"
 import Image from "next/image"
+import { useEffect, useState } from "react"
 
 interface CartSidebarProps {
   isOpen: boolean
@@ -14,7 +15,28 @@ interface CartSidebarProps {
 
 export default function CartSidebar({ isOpen, onClose }: CartSidebarProps) {
   const { items, totalItems, totalPrice } = useAppSelector((state) => state.cart)
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
+  const [localCart, setLocalCart] = useState<any[]>([])
+
+
+  useEffect(() => {
+    if (items.length === 0 && typeof window !== "undefined") {
+      const stored = localStorage.getItem("cart")
+      if (stored) {
+        try {
+          setLocalCart(JSON.parse(stored))
+        } catch {
+          setLocalCart([])
+        }
+      }
+    } else {
+      setLocalCart([])
+    }
+  }, [items])
+
+  // Use Redux cart if available, otherwise fallback to localStorage
+  const displayItems = items.length > 0 ? items : localCart
+
 
   const handleQuantityChange = (itemId: number, newQuantity: number) => {
     if (newQuantity <= 0) {
