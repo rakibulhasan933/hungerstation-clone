@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { X, Minus, Plus, Info, Flame, AlertCircle, CheckCircle2 } from "lucide-react"
+import { X, Minus, Plus, Info, Flame, AlertCircle, CheckCircle2, AlertTriangle, BarChart3 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -35,6 +35,40 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
   const [selectedOptions, setSelectedOptions] = useState<string[]>([])
+
+  const [firstSelection, setFirstSelection] = useState<string[]>([])
+  const [secondSelection, setSecondSelection] = useState<string[]>([])
+
+  const firstSectionItems = [
+    { id: "egg-hash", label: "Egg Hash Sandwich" },
+    { id: "french-egg", label: "French Egg Sandwich" },
+    { id: "vegeteriano", label: "Vegeteriano" },
+    { id: "pure-wow-turkey", label: "Pure Wow Turkey Sandwich" },
+    { id: "sujuk", label: "Sujuk Sandwich" },
+  ];
+  const secondSectionItems = [
+    { id: "egg-hash-2", label: "Egg Hash Sandwich" },
+    { id: "french-egg-2", label: "French Egg Sandwich" },
+    { id: "vegeteriano-2", label: "Vegeteriano" },
+    { id: "pure-wow-turkey-2", label: "Pure Wow Turkey Sandwich" },
+    { id: "sujuk-2", label: "Sujuk Sandwich" },
+  ]
+
+  const handleFirstSectionChange = (itemId: string, checked: boolean) => {
+    if (checked && firstSelection.length < 3) {
+      setFirstSelection((prev) => [...prev, itemId])
+    } else if (!checked) {
+      setFirstSelection((prev) => prev.filter((id) => id !== itemId))
+    }
+  }
+
+  const handleSecondSectionChange = (itemId: string, checked: boolean) => {
+    if (checked && secondSelection.length < 2) {
+      setSecondSelection((prev) => [...prev, itemId])
+    } else if (!checked) {
+      setSecondSelection((prev) => prev.filter((id) => id !== itemId))
+    }
+  }
 
 
   const dispatch = useAppDispatch()
@@ -148,7 +182,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
 
     // Simulate API call delay
     await new Promise((resolve) => setTimeout(resolve, 800))
-
+    // Prepare cart item
     const cartItem = {
       id: product.id,
       name: product.name,
@@ -157,6 +191,8 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
       quantity: quantity,
       customizations: selectedCustomizations,
       relatedItems: selectedRelatedItems,
+      firstSelection: firstSelection,
+      secondSelection: secondSelection,
       totalPrice: calculateTotalPrice(),
       addedAt: Date.now(),
     }
@@ -244,51 +280,20 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
               <p className="text-gray-600 ml-8">{product.fullDescription}</p>
 
               {/* Enhanced Info Icons */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                <div className="flex items-center gap-2 p-3 bg-orange-50 rounded-lg">
-                  <Flame className="h-4 w-4 text-orange-600" />
-                  <div>
-                    <div className="font-semibold text-orange-900">{product.nutritionalInfo.calories}</div>
-                    <div className="text-orange-600 text-xs">kcal</div>
-                  </div>
+              <div className="flex items-center gap-4 text-sm text-gray-500 ml-8">
+                <div className="flex items-center gap-1">
+                  <Flame className="h-4 w-4" />
+                  <span>6510 kcal</span>
                 </div>
-                <div className="flex items-center gap-2 p-3 bg-blue-50 rounded-lg">
-                  <Info className="h-4 w-4 text-blue-600" />
-                  <div>
-                    <div className="font-semibold text-blue-900">{product.nutritionalInfo.protein}</div>
-                    <div className="text-blue-600 text-xs">Protein</div>
-                  </div>
+                <div className="flex items-center gap-1">
+                  <AlertTriangle className="h-4 w-4" />
+                  <span>Allergens</span>
                 </div>
-                <div className="flex items-center gap-2 p-3 bg-green-50 rounded-lg">
-                  <Info className="h-4 w-4 text-green-600" />
-                  <div>
-                    <div className="font-semibold text-green-900">{product.nutritionalInfo.carbs}</div>
-                    <div className="text-green-600 text-xs">Carbs</div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 p-3 bg-purple-50 rounded-lg">
-                  <Info className="h-4 w-4 text-purple-600" />
-                  <div>
-                    <div className="font-semibold text-purple-900">{product.nutritionalInfo.fat}</div>
-                    <div className="text-purple-600 text-xs">Fat</div>
-                  </div>
+                <div className="flex items-center gap-1">
+                  <BarChart3 className="h-4 w-4" />
+                  <span>Nutritional data</span>
                 </div>
               </div>
-
-              {/* Allergens */}
-              {product.allergens && product.allergens.length > 0 && (
-                <div className="space-y-2">
-                  <h4 className="font-semibold text-gray-900">Allergens</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {product.allergens.map((allergen: any, index: any) => (
-                      <Badge key={index} variant="outline" className="text-xs border-red-200 text-red-700">
-                        ⚠️ {allergen}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              )}
-              {/* main */}
 
               {/* Form Validation Errors */}
               {formErrors.general && (
@@ -298,6 +303,80 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                 </div>
               )}
 
+              {/* First Selection Section */}
+              <div className=" space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800">Blue Box Selection</h3>
+                    <p className="text-sm text-gray-500">{firstSelection.length} selections</p>
+                  </div>
+                  <Badge
+                    variant={firstSelection.length === 3 ? "default" : "secondary"}
+                    className={firstSelection.length === 3 ? "bg-green-500 hover:bg-green-600" : "bg-red-500 text-gray-600"}
+                  >
+                    Required
+                  </Badge>
+                </div>
+              </div>
+              <div className="space-y-3">
+                {firstSectionItems.map((item) => {
+                  const isSelected = firstSelection.includes(item.id)
+                  const isDisabled = !isSelected && firstSelection.length >= 3
+
+                  return (
+                    <div key={item.id}
+                      className={`flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors
+                      }`}>
+                      <label htmlFor={item.id} className={`text-gray-700 text-sm font-medium cursor-pointer ${isDisabled ? "text-gray-400" : ""}`}>
+                        {item.label}
+                      </label>
+                      <Checkbox
+                        checked={isSelected}
+                        disabled={isDisabled}
+                        onCheckedChange={(checked) => handleFirstSectionChange(item.id, checked as boolean)}
+                        className="data-[state=checked]:bg-amber-800 data-[state=checked]:border-amber-800"
+                      />
+                    </div>
+                  )
+                })}
+              </div>
+              {/* Second Selection Section */}
+              <div className=" space-y-3">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800">Blue Box Selection</h3>
+                    <p className="text-sm text-gray-500">{secondSelection.length} selections</p>
+                  </div>
+                  <Badge
+                    variant={secondSelection.length === 2 ? "default" : "secondary"}
+                    className={secondSelection.length === 2 ? "bg-green-500 hover:bg-green-600" : "bg-red-500 text-gray-600"}
+                  >
+                    Required
+                  </Badge>
+                </div>
+              </div>
+              <div className="space-y-3">
+                {secondSectionItems.map((item) => {
+                  const isSelected = secondSelection.includes(item.id)
+                  const isDisabled = !isSelected && secondSelection.length >= 2
+
+                  return (
+                    <div key={item.id}
+                      className={`flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors
+                      }`}>
+                      <label htmlFor={item.id} className={`text-gray-700 text-sm font-medium cursor-pointer ${isDisabled ? "text-gray-400" : ""}`}>
+                        {item.label}
+                      </label>
+                      <Checkbox
+                        checked={isSelected}
+                        disabled={isDisabled}
+                        onCheckedChange={(checked) => handleSecondSectionChange(item.id, checked as boolean)}
+                        className="data-[state=checked]:bg-amber-800 data-[state=checked]:border-amber-800"
+                      />
+                    </div>
+                  )
+                })}
+              </div>
               {/* Enhanced Customizations with Validation */}
               {product.customizations && product.customizations.length > 0 && (
                 <div className="space-y-6">
@@ -320,6 +399,35 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                           </p>
                         )}
                       </div>
+                      <div className="space-y-3">
+                        {/* Customization Options */}
+                        {customization.options.map((option: any) => (
+                          <div
+                            key={option.id}
+                            className={`flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors ${formErrors.customizations?.[customization.id] ? "border-red-200 bg-red-50" : "border-gray-200"
+                              }`}
+                          >
+                            <div className="flex items-center space-x-3">
+
+                              <label htmlFor={option.id} className="text-sm font-medium cursor-pointer">
+                                {option.name}
+                              </label>
+                            </div>
+                            <div className="flex items-center space-x-3">
+                              {option.price > 0 && (
+                                <span className="text-[10px] font-semibold text-green-600">(₹{option.price})</span>
+                              )}
+                              <Checkbox
+                                id={option.id}
+                                checked={selectedOptions.includes(option.id)}
+                                onCheckedChange={(checked) => handleCheckboxChange(option.id, checked as boolean)}
+                              />
+                            </div>
+
+                          </div>
+                        ))}
+                      </div>
+
                       <div className="space-y-3">
                         {customization.options.map((option: any) => (
                           <div
@@ -421,7 +529,7 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
 
                   <Button
                     onClick={handleAddToCart}
-                    disabled={isSubmitting || !isButtonVisible}
+                    disabled={isSubmitting || firstSelection.length !== 3 || secondSelection.length !== 2}
                     className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold px-8 py-4 rounded-xl text-lg shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50"
                   >
                     {isSubmitting ? (

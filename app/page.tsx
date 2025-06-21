@@ -7,13 +7,16 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import LoadingSpinner from "@/components/loading-spinner"
 import ProductGrid from "@/components/product-grid"
+import { useAppSelector } from "@/store/hooks"
 
 export default function FoodDeliveryApp() {
     const [scrollY, setScrollY] = useState(0)
     const [isSticky, setIsSticky] = useState(false)
     const [lastScrollY, setLastScrollY] = useState(0)
     const titleRef = useRef<HTMLDivElement>(null)
-    const originalTitleRef = useRef<HTMLDivElement>(null)
+    const originalTitleRef = useRef<HTMLDivElement>(null);
+
+    const data = useAppSelector((state) => console.log(state));
 
     useEffect(() => {
         const handleScroll = () => {
