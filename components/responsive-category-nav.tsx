@@ -57,10 +57,10 @@ export default function ResponsiveCategoryNav({
 
     return (
         <>
-            {/* Mobile & Tablet Navigation (< lg) */}
+            {/* Mobile & Tablet Navigation (< lg) - Ensure it doesn't affect desktop */}
             <div className="lg:hidden">
                 <div
-                    className={`bg-white/95 backdrop-blur-sm border-b shadow-sm transition-all duration-300 z-50 ${isSticky ? "fixed top-0 left-0 right-0" : "relative"
+                    className={`bg-white/95 backdrop-blur-sm border-b shadow-sm transition-all duration-300 z-50 ${isSticky ? "fixed top-16 left-0 right-0" : "relative"
                         }`}
                 >
                     <div className="w-full px-2 sm:px-4">
@@ -111,55 +111,6 @@ export default function ResponsiveCategoryNav({
                     <div
                         className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-orange-500 to-red-500 transform origin-left transition-transform duration-500"
                         style={{ transform: isSticky ? "scaleX(1)" : "scaleX(0)" }}
-                    />
-                </div>
-            </div>
-
-            {/* Desktop Navigation (>= lg) */}
-            <div className="hidden lg:block">
-                <div
-                    className={`bg-white/95 backdrop-blur-sm border-r shadow-sm transition-all duration-300 z-40 ${isSticky ? "fixed top-0 left-0 bottom-0 w-80" : "relative w-80"
-                        }`}
-                >
-                    <div className="p-4 xl:p-6 h-full overflow-y-auto">
-                        <h3 className="text-lg font-semibold text-gray-900 mb-4">Categories</h3>
-                        <div className="space-y-2">
-                            {categories.map((category) => {
-                                const Icon = category.icon
-                                const isActive = activeCategory === category.id
-
-                                return (
-                                    <Button
-                                        key={category.id}
-                                        data-category={category.id}
-                                        variant={isActive ? "default" : "ghost"}
-                                        className={`w-full justify-start h-12 px-4 transition-all duration-300 ${isActive
-                                            ? "bg-gradient-to-r from-orange-500 to-red-500 hover:from-orange-600 hover:to-red-600 text-white shadow-lg scale-105 border-l-4 border-orange-300"
-                                            : "hover:bg-orange-50 text-gray-700 hover:text-orange-600 hover:border-l-4 hover:border-orange-200"
-                                            }`}
-                                        onClick={() => scrollToCategory(category.id)}
-                                    >
-                                        <Icon className={`mr-3 h-5 w-5 ${isActive ? "animate-pulse" : ""}`} />
-                                        <span className="font-medium flex-1 text-left">{category.name}</span>
-                                        <Badge
-                                            variant={isActive ? "secondary" : "outline"}
-                                            className={`transition-all duration-300 ${isActive
-                                                ? "bg-white/20 text-white border-white/30 animate-bounce"
-                                                : "bg-gray-100 text-gray-600 hover:bg-orange-100 hover:text-orange-700"
-                                                }`}
-                                        >
-                                            {category.count}
-                                        </Badge>
-                                    </Button>
-                                )
-                            })}
-                        </div>
-                    </div>
-
-                    {/* Animated side border */}
-                    <div
-                        className="absolute top-0 right-0 bottom-0 w-0.5 bg-gradient-to-b from-orange-500 to-red-500 transform origin-top transition-transform duration-500"
-                        style={{ transform: isSticky ? "scaleY(1)" : "scaleY(0)" }}
                     />
                 </div>
             </div>
