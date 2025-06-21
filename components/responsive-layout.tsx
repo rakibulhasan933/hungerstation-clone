@@ -47,8 +47,8 @@ const productsByCategory = {
                 },
             ],
             relatedItems: [
-                { id: "drink1", name: "Coca Cola", price: 5, image: "/placeholder.svg?height=100&width=100" },
-                { id: "drink2", name: "Coca Cola", price: 5, image: "/placeholder.svg?height=100&width=100" },
+                { id: "drink1", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+                { id: "drink2", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
             ],
         },
         {
@@ -57,7 +57,7 @@ const productsByCategory = {
             description: "4 pieces of chicken + fries + garlic sauce + coleslaw",
             price: 25.0,
             calories: 1370,
-            image: "/placeholder.svg?height=200&width=200",
+            image: "/bannar.jpg?height=200&width=200",
             rating: 4.7,
             isSpicy: true,
             fullDescription: "4 pieces of spicy chicken + fries + garlic sauce + cocktail sauce + bread",
@@ -83,7 +83,10 @@ const productsByCategory = {
                     ],
                 },
             ],
-            relatedItems: [],
+            relatedItems: [
+                { id: "drink1", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+                { id: "drink2", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+            ],
         },
     ],
     special: [
@@ -93,7 +96,7 @@ const productsByCategory = {
             description: "8 pieces of chicken + large fries + 4 garlic sauce + coleslaw",
             price: 45.0,
             calories: 2400,
-            image: "/placeholder.svg?height=200&width=200",
+            image: "/bannar.jpg?height=200&width=200",
             rating: 4.8,
             isPopular: true,
             fullDescription: "8 pieces of chicken + large fries + 4 garlic sauce + coleslaw + bread rolls",
@@ -119,7 +122,10 @@ const productsByCategory = {
                     ],
                 },
             ],
-            relatedItems: [],
+            relatedItems: [
+                { id: "drink1", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+                { id: "drink2", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+            ],
         },
     ],
     main: [
@@ -129,7 +135,7 @@ const productsByCategory = {
             description: "4 pieces of spicy broasted chicken covered in special sauce",
             price: 28.0,
             calories: 1450,
-            image: "/placeholder.svg?height=200&width=200",
+            image: "/bannar.jpg?height=200&width=200",
             rating: 4.9,
             isSpicy: true,
             isNew: true,
@@ -157,7 +163,10 @@ const productsByCategory = {
                     ],
                 },
             ],
-            relatedItems: [],
+            relatedItems: [
+                { id: "drink1", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+                { id: "drink2", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+            ],
         },
     ],
     sandwiches: [
@@ -167,7 +176,7 @@ const productsByCategory = {
             description: "Crispy chicken breast + lettuce + tomato + special sauce",
             price: 18.0,
             calories: 650,
-            image: "/placeholder.svg?height=200&width=200",
+            image: "/bannar.jpg?height=200&width=200",
             rating: 4.5,
             fullDescription: "Crispy chicken breast + lettuce + tomato + special sauce + pickles + cheese",
             allergens: ["Gluten", "Dairy"],
@@ -192,7 +201,10 @@ const productsByCategory = {
                     ],
                 },
             ],
-            relatedItems: [],
+            relatedItems: [
+                { id: "drink1", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+                { id: "drink2", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+            ],
         },
     ],
     sides: [
@@ -202,7 +214,7 @@ const productsByCategory = {
             description: "Marinated and fried chicken slices with garlic sauce",
             price: 22.0,
             calories: 980,
-            image: "/placeholder.svg?height=200&width=200",
+            image: "/bannar.jpg?height=200&width=200",
             rating: 4.6,
             fullDescription: "Marinated and fried chicken slices with garlic sauce and fresh vegetables",
             allergens: ["Gluten"],
@@ -227,7 +239,10 @@ const productsByCategory = {
                     ],
                 },
             ],
-            relatedItems: [],
+            relatedItems: [
+                { id: "drink1", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+                { id: "drink2", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+            ],
         },
     ],
     pizza: [
@@ -237,7 +252,7 @@ const productsByCategory = {
             description: "Fresh mozzarella + tomato sauce + basil",
             price: 32.0,
             calories: 1200,
-            image: "/placeholder.svg?height=200&width=200",
+            image: "/bannar.jpg?height=200&width=200",
             rating: 4.4,
             fullDescription: "Fresh mozzarella cheese, tomato sauce, and fresh basil on thin crust",
             allergens: ["Gluten", "Dairy"],
@@ -262,7 +277,10 @@ const productsByCategory = {
                     ],
                 },
             ],
-            relatedItems: [],
+            relatedItems: [
+                { id: "drink1", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+                { id: "drink2", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+            ],
         },
     ],
     drinks: [
@@ -272,7 +290,7 @@ const productsByCategory = {
             description: "Freshly squeezed orange juice",
             price: 8.0,
             calories: 120,
-            image: "/placeholder.svg?height=200&width=200",
+            image: "/bannar.jpg?height=200&width=200",
             rating: 4.3,
             fullDescription: "100% fresh orange juice, no added sugar or preservatives",
             allergens: [],
@@ -297,7 +315,10 @@ const productsByCategory = {
                     ],
                 },
             ],
-            relatedItems: [],
+            relatedItems: [
+                { id: "drink1", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+                { id: "drink2", name: "Coca Cola", price: 5, image: "/poducts.jpg?height=100&width=100" },
+            ],
         },
     ],
 }
