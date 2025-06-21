@@ -1,17 +1,71 @@
-import Image from "next/image"
-import { ArrowLeft, Search, Star, Clock, Truck, Plus, Menu } from "lucide-react"
+"use client"
+
+import { useEffect, useState, useRef, Suspense } from "react"
+import { ArrowLeft, Search, Star, Clock, Truck } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import CategorySidebar from "@/components/category-sidebar"
 import LoadingSpinner from "@/components/loading-spinner"
-import { Suspense } from "react"
 import ProductGrid from "@/components/product-grid"
 
 export default function FoodDeliveryApp() {
+    const [scrollY, setScrollY] = useState(0)
+    const [isSticky, setIsSticky] = useState(false)
+    const [lastScrollY, setLastScrollY] = useState(0)
+    const titleRef = useRef<HTMLDivElement>(null)
+    const originalTitleRef = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY
+            setScrollY(currentScrollY)
+
+            // Get the original title position
+            if (originalTitleRef.current) {
+                const titleRect = originalTitleRef.current.getBoundingClientRect()
+                const titleTop = titleRect.top + currentScrollY
+
+                // Trigger sticky when title would go out of view (scrolled past 200px)
+                if (currentScrollY > 200 && !isSticky) {
+                    setIsSticky(true)
+                } else if (currentScrollY <= 200 && isSticky) {
+                    setIsSticky(false)
+                }
+            }
+
+            setLastScrollY(currentScrollY)
+        }
+
+        window.addEventListener("scroll", handleScroll, { passive: true })
+        return () => window.removeEventListener("scroll", handleScroll)
+    }, [isSticky])
+
+    // Calculate animation progress for smooth transition
+    const animationProgress = Math.min(Math.max((scrollY - 150) / 100, 0), 1)
+
     return (
-        <div className="min-h-screen bg-gray-50 mx-3 md:mx-20">
-            {/* Header */}
+        <div className="min-h-[200vh] bg-gray-50 mx-3 md:mx-20 relative">
+            {/* Sticky Header Container */}
+            <div
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${isSticky
+                    ? "translate-y-0 opacity-100 backdrop-blur-md bg-white/90 shadow-lg border-b border-gray-200"
+                    : "-translate-y-full opacity-0"
+                    }`}
+            >
+                <div className="mx-3 md:mx-20 px-4 py-4 flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                        <Button variant="ghost" size="icon" className="rounded-full bg-gray-100 text-gray-800 hover:bg-gray-200">
+                            <ArrowLeft className="h-5 w-5" />
+                        </Button>
+                        <h2 className="text-xl md:text-2xl font-bold text-gray-900 animate-slide-in">Bk Boutique</h2>
+                    </div>
+                    <Button variant="ghost" size="icon" className="rounded-full bg-gray-100 text-gray-800 hover:bg-gray-200">
+                        <Search className="h-5 w-5" />
+                    </Button>
+                </div>
+            </div>
+
+            {/* Original Header */}
             <div className="relative bg-gradient-to-br from-gray-800 to-gray-900 px-4 py-6 text-white">
                 <div className="flex items-center justify-between mb-6">
                     <Button variant="ghost" size="icon" className="rounded-full bg-white text-gray-800 hover:bg-gray-100">
@@ -34,8 +88,8 @@ export default function FoodDeliveryApp() {
             <div className="mx-4 md:mx-24 -mt-8 relative z-10">
                 <Card className="bg-white shadow-lg rounded-2xl overflow-hidden">
                     <CardContent className="p-6">
-                        {/* Restaurant Header */}
-                        <div className="flex items-start gap-4 mb-6">
+                        {/* Restaurant Header with Original Title */}
+                        <div className="flex items-start gap-4 mb-6" ref={originalTitleRef}>
                             <div className="w-16 h-16 bg-pink-100 rounded-lg flex items-center justify-center">
                                 <div className="w-12 h-12 bg-gradient-to-br from-pink-400 to-purple-500 rounded-lg flex items-center justify-center">
                                     <span className="text-white font-bold text-lg">BK</span>
@@ -44,7 +98,12 @@ export default function FoodDeliveryApp() {
                             <div className="flex-1">
                                 <div className="flex items-center justify-between">
                                     <div>
-                                        <h2 className="text-2xl font-bold text-gray-900">Bk Boutique</h2>
+                                        <h2
+                                            className={`text-2xl font-bold transition-all duration-500 ${isSticky ? "text-gray-400 scale-95" : "text-gray-900 scale-100"
+                                                }`}
+                                        >
+                                            Bk Boutique
+                                        </h2>
                                         <p className="text-gray-600">Desserts, Bakery</p>
                                     </div>
                                     <div className="flex items-center gap-1">
@@ -107,7 +166,6 @@ export default function FoodDeliveryApp() {
                     </CardContent>
                 </Card>
             </div>
-
             {/* Navigation Tabs */}
             <div className="flex flex-col lg:flex-row gap-8 mt-8">
                 <section className="flex-1">
@@ -116,9 +174,26 @@ export default function FoodDeliveryApp() {
                     </Suspense>
                 </section>
             </div>
-
             {/* Bottom Spacing */}
             <div className="h-20"></div>
+
+
+
+            <style jsx>{`
+        @keyframes slide-in {
+          from { 
+            opacity: 0; 
+            transform: translateX(-20px); 
+          }
+          to { 
+            opacity: 1; 
+            transform: translateX(0); 
+          }
+        }
+        .animate-slide-in {
+          animation: slide-in 0.4s ease-out 0.2s both;
+        }
+      `}</style>
         </div>
     )
 }
