@@ -1,13 +1,14 @@
 "use client"
 
 import { useEffect, useState, useRef, Suspense } from "react"
-import { ArrowLeft, Search, Star, Clock, Truck } from "lucide-react"
+import { ArrowLeft, Search, Star, Clock, Truck, ShoppingCart } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import LoadingSpinner from "@/components/loading-spinner"
 import ProductGrid from "@/components/product-grid"
 import { useAppSelector } from "@/store/hooks"
+import CartSidebar from "@/components/cart-sidebar"
 
 export default function FoodDeliveryApp() {
     const [scrollY, setScrollY] = useState(0)
@@ -15,8 +16,10 @@ export default function FoodDeliveryApp() {
     const [lastScrollY, setLastScrollY] = useState(0)
     const titleRef = useRef<HTMLDivElement>(null)
     const originalTitleRef = useRef<HTMLDivElement>(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false)
+    const [isCartOpen, setIsCartOpen] = useState(false)
+    const { totalItems, totalPrice } = useAppSelector((state) => state.cart)
 
-    const data = useAppSelector((state) => console.log(state));
 
     useEffect(() => {
         const handleScroll = () => {
@@ -62,9 +65,27 @@ export default function FoodDeliveryApp() {
                         </Button>
                         <h2 className="text-xl md:text-2xl font-bold text-gray-900 animate-slide-in">Bk Boutique</h2>
                     </div>
-                    <Button variant="ghost" size="icon" className="rounded-full bg-gray-100 text-gray-800 hover:bg-gray-200">
-                        <Search className="h-5 w-5" />
-                    </Button>
+
+                    <div className="space-x-3 flex items-center">
+                        <Button variant="ghost" size="icon" className="rounded-full bg-gray-100 text-gray-800 hover:bg-gray-200">
+                            <Search className="h-5 w-5" />
+                        </Button>
+                        <Button
+                            variant="ghost"
+                            size="sm"
+                            className="relative hover:bg-orange-50 transition-colors"
+                            onClick={() => setIsCartOpen(true)}
+                        >
+                            <ShoppingCart className="h-5 w-5" />
+                            {totalItems > 0 && (
+                                <>
+                                    <Badge className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white text-xs h-5 w-5 flex items-center justify-center p-0 rounded-full animate-bounce">
+                                        {totalItems}
+                                    </Badge>
+                                </>
+                            )}
+                        </Button>
+                    </div>
                 </div>
             </div>
 
@@ -179,6 +200,7 @@ export default function FoodDeliveryApp() {
             </div>
             {/* Bottom Spacing */}
             <div className="h-20"></div>
+            <CartSidebar isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
 
 
 

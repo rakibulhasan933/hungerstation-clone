@@ -197,7 +197,18 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
       addedAt: Date.now(),
     }
 
+    // Save to Redux
     dispatch(addItem(cartItem))
+
+    // Save to localStorage
+    try {
+      const existingCart = JSON.parse(localStorage.getItem("cart") || "[]")
+      // Add new cart item to the beginning of the array (most recent first)
+      const updatedCart = [cartItem, ...existingCart]
+      localStorage.setItem("cart", JSON.stringify(updatedCart))
+    } catch (e) {
+      // Ignore localStorage errors
+    }
 
     setShowSuccess(true)
     setIsSubmitting(false)
@@ -416,34 +427,6 @@ export default function ProductModal({ product, onClose }: ProductModalProps) {
                             <div className="flex items-center space-x-3">
                               {option.price > 0 && (
                                 <span className="text-[10px] font-semibold text-green-600">(₹{option.price})</span>
-                              )}
-                              <Checkbox
-                                id={option.id}
-                                checked={selectedOptions.includes(option.id)}
-                                onCheckedChange={(checked) => handleCheckboxChange(option.id, checked as boolean)}
-                              />
-                            </div>
-
-                          </div>
-                        ))}
-                      </div>
-
-                      <div className="space-y-3">
-                        {customization.options.map((option: any) => (
-                          <div
-                            key={option.id}
-                            className={`flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors ${formErrors.customizations?.[customization.id] ? "border-red-200 bg-red-50" : "border-gray-200"
-                              }`}
-                          >
-                            <div className="flex items-center space-x-3">
-
-                              <label htmlFor={option.id} className="text-sm font-medium cursor-pointer">
-                                {option.name}
-                              </label>
-                            </div>
-                            <div className="flex items-center space-x-3">
-                              {option.price > 0 && (
-                                <span className="text-sm font-semibold text-green-600">(+₹{option.price})</span>
                               )}
                               <Checkbox
                                 id={option.id}
