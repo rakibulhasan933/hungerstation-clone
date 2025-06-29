@@ -31,13 +31,6 @@ interface FormErrors {
   quantity?: string
   general?: string
 }
-// Sample images for the slider
-const images = [
-  "/bannar.jpg?height=300&width=500&text=Investment+Portfolio",
-  "/bannar.jpg?height=300&width=500&text=Savings+Account",
-  "/bannar.jpg?height=300&width=500&text=Emergency+Fund",
-  "/bannar.jpg?height=300&width=500&text=Retirement+Plan",
-]
 
 
 
@@ -339,17 +332,19 @@ function ScrollableContent({ product, onClose }: ScrollableContentProps) {
       >
         <div className="flex items-center justify-between px-6 py-4">
           <div className="flex items-center gap-3">
-            <DrawerClose  >
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-8 w-8 rounded-full bg-white/90 hover:bg-white shadow-md border-gray-300 hover:border-gray-400 transition-all duration-200"
-                onClick={onClose}
-                aria-label="Close modal"
-              >
+
+            <Button
+              variant="outline"
+              size="icon"
+
+              className="h-8 w-8 rounded-full bg-white/90 hover:bg-white shadow-md border-gray-300 hover:border-gray-400 transition-all duration-200"
+              asChild
+            >
+              <DrawerClose  >
                 <X className="h-4 w-4 text-gray-600" />
-              </Button>
-            </DrawerClose>
+              </DrawerClose>
+            </Button>
+
             <div>
               <h2 className="text-lg font-semibold text-gray-900">{product.name}</h2>
             </div>
