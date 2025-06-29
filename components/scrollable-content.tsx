@@ -239,11 +239,17 @@ export default function ScrollableContent({ product, onClose }: ScrollableConten
 
     // Calculate scroll progress and effects
     const scrollProgress = maxScroll > 0 ? Math.min(scrollY / maxScroll, 1) : 0
-    const textTranslateY = scrollProgress * -120
+    const textTranslateY = scrollProgress * -1
     const blurAmount = scrollProgress * 4
+    const contentOverlapThreshold = 1
+
+    const contentTranslateY =
+        scrollY < contentOverlapThreshold ? 0 : Math.min(-1, (scrollY - contentOverlapThreshold) * 1)
+
+    const contentZIndex = scrollY > contentOverlapThreshold ? 60 : 10
 
     // Sticky title calculations
-    const stickyTitleThreshold = 100 // Show sticky title after scrolling 100px
+    const stickyTitleThreshold = 320 // Show sticky title after scrolling 400px
     const showStickyTitle = scrollY > stickyTitleThreshold
     const stickyTitleOpacity = showStickyTitle ? 1 : 0
     const stickyTitleTranslateY = showStickyTitle ? 0 : -50
@@ -298,8 +304,8 @@ export default function ScrollableContent({ product, onClose }: ScrollableConten
                 <div
                     className="relative transition-all duration-100 ease-out rounded-2xl"
                     style={{
-                        transform: `translateY(${textTranslateY}px)`,
-                        zIndex: scrollProgress > 0.1 ? 60 : 10,
+                        transform: `translateY(${contentTranslateY}px)`,
+                        zIndex: contentZIndex,
                     }}
                 >
                     <div className="bg-white/95 backdrop-blur-sm border-t-4 border-green-500/20 rounded-2xl">
