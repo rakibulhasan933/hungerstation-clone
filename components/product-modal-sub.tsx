@@ -19,6 +19,7 @@ interface ProductModalProps {
 
 
 
+
 export default function productModalSub({ product, onClose }: ProductModalProps) {
     const [open, setOpen] = React.useState(false)
     const [isMobile, setIsMobile] = React.useState(false);
