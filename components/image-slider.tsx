@@ -30,7 +30,7 @@ export default function ImageSlider({ images }: { images: string[] }) {
 
             {/* Navigation buttons */}
             <Button
-
+                className=""
                 size="icon"
                 onClick={prevImage}
             >
