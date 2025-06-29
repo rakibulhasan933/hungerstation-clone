@@ -9,8 +9,8 @@ export default function Hero() {
       <div className="relative z-10 flex flex-col lg:flex-row items-center p-8 lg:p-12">
         <div className="flex-1 space-y-6">
           <div className="space-y-2">
-            <h1 className="text-4xl lg:text-5xl font-bold">Delicious Food</h1>
-            <p className="text-xl text-purple-100">Fast Food • American • Chicken</p>
+            <h1 className="text-2xl md:text-5xl font-bold">Delicious Food</h1>
+            <p className=" text-lg md:text-xl text-purple-100">Fast Food • American • Chicken</p>
           </div>
 
           <div className="flex items-center space-x-6">

@@ -554,51 +554,48 @@ export default function ScrollableContent({ product, onClose }: ScrollableConten
                             </div>
                             <div className="px-4 sm:px-6 pt-3 sm:pt-4 border-t bg-white">
                                 <div className={`${isDesktop ? "border-t pt-4 mt-6" : ""}`}>
-                                    <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-4">
-                                        <div className="space-y-2 flex-1">
-                                            <label className="text-xs sm:text-sm font-medium text-gray-700">Quantity</label>
-                                            <div className="flex items-center bg-gray-100 rounded-lg w-fit">
-                                                <button
-                                                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                                    className="p-2 sm:p-3 hover:bg-gray-200 rounded-l-lg transition-colors disabled:opacity-50"
-                                                    disabled={quantity <= 1}
-                                                >
-                                                    <Minus className="h-3 w-3 sm:h-4 sm:w-4" />
-                                                </button>
-                                                <span className="px-3 sm:px-4 py-2 sm:py-3 font-semibold min-w-[2.5rem] sm:min-w-[3rem] text-center text-sm sm:text-base">
-                                                    {quantity}
-                                                </span>
-                                                <button
-                                                    onClick={() => setQuantity(Math.min(10, quantity + 1))}
-                                                    className="p-2 sm:p-3 hover:bg-gray-200 rounded-r-lg transition-colors disabled:opacity-50"
-                                                    disabled={quantity >= 10}
-                                                >
-                                                    <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
-                                                </button>
-                                            </div>
-                                            {formErrors.quantity && (
-                                                <p className="text-red-600 text-xs sm:text-sm flex items-center space-x-1">
-                                                    <AlertCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
-                                                    <span>{formErrors.quantity}</span>
-                                                </p>
-                                            )}
-                                        </div>
-                                    </div>
+                                    <div className="space-y-2 flex flex-row items-center justify-between gap-4">
 
-                                    <Button
-                                        onClick={handleAddToCart}
-                                        disabled={isSubmitting || firstSelection.length !== 3 || secondSelection.length !== 2}
-                                        className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 sm:py-4 rounded-lg sm:rounded-xl text-sm sm:text-lg shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50"
-                                    >
-                                        {isSubmitting ? (
-                                            <div className="flex items-center justify-center space-x-2">
-                                                <div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
-                                                <span>Adding...</span>
-                                            </div>
-                                        ) : (
-                                            `Add ₹${(calculateTotalPrice() * quantity).toFixed(0)}`
+                                        <div className="flex items-center bg-gray-100 rounded-lg w-fit">
+                                            <button
+                                                onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                                                className="p-2 sm:p-3 hover:bg-gray-200 rounded-l-lg transition-colors disabled:opacity-50"
+                                                disabled={quantity <= 1}
+                                            >
+                                                <Minus className="h-3 w-3 sm:h-4 sm:w-4" />
+                                            </button>
+                                            <span className="px-3 sm:px-4 py-2 sm:py-3 font-semibold min-w-[2.5rem] sm:min-w-[3rem] text-center text-sm sm:text-base">
+                                                {quantity}
+                                            </span>
+                                            <button
+                                                onClick={() => setQuantity(Math.min(10, quantity + 1))}
+                                                className="p-2 sm:p-3 hover:bg-gray-200 rounded-r-lg transition-colors disabled:opacity-50"
+                                                disabled={quantity >= 10}
+                                            >
+                                                <Plus className="h-3 w-3 sm:h-4 sm:w-4" />
+                                            </button>
+                                        </div>
+                                        {formErrors.quantity && (
+                                            <p className="text-red-600 text-xs sm:text-sm flex items-center space-x-1">
+                                                <AlertCircle className="h-3 w-3 sm:h-4 sm:w-4 flex-shrink-0" />
+                                                <span>{formErrors.quantity}</span>
+                                            </p>
                                         )}
-                                    </Button>
+                                        <Button
+                                            onClick={handleAddToCart}
+                                            disabled={isSubmitting || firstSelection.length !== 3 || secondSelection.length !== 2}
+                                            className="w-full bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-3 sm:py-4 rounded-lg sm:rounded-xl text-sm sm:text-lg shadow-lg hover:shadow-xl transition-all duration-200 disabled:opacity-50"
+                                        >
+                                            {isSubmitting ? (
+                                                <div className="flex items-center justify-center space-x-2">
+                                                    <div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                                                    <span>Adding...</span>
+                                                </div>
+                                            ) : (
+                                                `Add ₹${(calculateTotalPrice() * quantity).toFixed(0)}`
+                                            )}
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
